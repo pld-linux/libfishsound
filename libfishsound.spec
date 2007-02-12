@@ -1,5 +1,5 @@
 Summary:	A library to encode and decode Vorbis or Speex compressed audio
-Summary(pl):	Biblioteka do kodowania i dekodowania dºwiÍku w formacie Speex lub Vorbis
+Summary(pl.UTF-8):   Biblioteka do kodowania i dekodowania d≈∫wiƒôku w formacie Speex lub Vorbis
 Name:		libfishsound
 Version:	0.7.0
 Release:	1
@@ -26,19 +26,19 @@ lower level layer such as UDP datagrams. When these codecs are used in
 files, they are commonly encapsulated in Ogg to produce Ogg Vorbis
 and Speex files.
 
-%description -l pl
-libfishsound udostÍpnia prosty interfejs programistyczny do
-dekodowania i kodowania plikÛw dºwiÍkowych przy uøyciu kodekÛw
+%description -l pl.UTF-8
+libfishsound udostƒôpnia prosty interfejs programistyczny do
+dekodowania i kodowania plik√≥w d≈∫wiƒôkowych przy u≈ºyciu kodek√≥w
 Xiph.Org (Vorbis i Speex).
 
-Sama biblioteka libfishsound jest przeznaczona do obs≥ugi surowych
-strumieni kodekÛw z niøszej warstwy takiej jak datagramy UDP. W
-przypadku gdy kodeki te s± uøyte w plikach, s± zwykle obudowane w Ogg,
-tworz±c pliki Ogg Vorbis i Ogg Speex.
+Sama biblioteka libfishsound jest przeznaczona do obs≈Çugi surowych
+strumieni kodek√≥w z ni≈ºszej warstwy takiej jak datagramy UDP. W
+przypadku gdy kodeki te sƒÖ u≈ºyte w plikach, sƒÖ zwykle obudowane w Ogg,
+tworzƒÖc pliki Ogg Vorbis i Ogg Speex.
 
 %package devel
 Summary:	Header files for libfishsound library
-Summary(pl):	Pliki nag≥Ûwkowe biblioteki libfishsound
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe biblioteki libfishsound
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libvorbis-devel >= 1:1.0
@@ -47,19 +47,19 @@ Requires:	speex-devel >= 1:1.1.6
 %description devel
 Header files for libfishsound library.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe biblioteki libfishsound.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe biblioteki libfishsound.
 
 %package static
 Summary:	Static libfishsound library
-Summary(pl):	Statyczna biblioteka libfishsound
+Summary(pl.UTF-8):   Statyczna biblioteka libfishsound
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libfishsound library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka libfishsound.
 
 %prep
