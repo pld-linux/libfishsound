@@ -1,5 +1,5 @@
 Summary:	A library to encode and decode Vorbis or Speex compressed audio
-Summary(pl.UTF-8):   Biblioteka do kodowania i dekodowania dźwięku w formacie Speex lub Vorbis
+Summary(pl.UTF-8):	Biblioteka do kodowania i dekodowania dźwięku w formacie Speex lub Vorbis
 Name:		libfishsound
 Version:	0.7.0
 Release:	1
@@ -38,7 +38,7 @@ tworząc pliki Ogg Vorbis i Ogg Speex.
 
 %package devel
 Summary:	Header files for libfishsound library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki libfishsound
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libfishsound
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libvorbis-devel >= 1:1.0
@@ -52,7 +52,7 @@ Pliki nagłówkowe biblioteki libfishsound.
 
 %package static
 Summary:	Static libfishsound library
-Summary(pl.UTF-8):   Statyczna biblioteka libfishsound
+Summary(pl.UTF-8):	Statyczna biblioteka libfishsound
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
