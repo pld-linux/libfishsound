@@ -1,12 +1,12 @@
 Summary:	A library to encode and decode Vorbis or Speex compressed audio
 Summary(pl.UTF-8):	Biblioteka do kodowania i dekodowania dźwięku w formacie Speex lub Vorbis
 Name:		libfishsound
-Version:	0.7.0
+Version:	0.8.0
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://annodex.net/software/libfishsound/download/%{name}-%{version}.tar.gz
-# Source0-md5:	00ece8c9a0363b37957ce670bcf270d3
+# Source0-md5:	c21539b2c0b20c458ec3eb3f92fe3f26
 URL:		http://annodex.net/software/libfishsound/index.html
 BuildRequires:	liboggz-devel >= 0.5.40
 BuildRequires:	libsndfile-devel >= 1.0.0
