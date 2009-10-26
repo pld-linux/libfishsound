@@ -1,20 +1,21 @@
 Summary:	A library to encode and decode Vorbis or Speex compressed audio
 Summary(pl.UTF-8):	Biblioteka do kodowania i dekodowania dźwięku w formacie Speex lub Vorbis
 Name:		libfishsound
-Version:	0.9.1
+Version:	0.9.2
 Release:	1
 License:	BSD
 Group:		Libraries
-Source0:	http://annodex.net/software/libfishsound/download/%{name}-%{version}.tar.gz
-# Source0-md5:	42e84db27c203e7d20e1d18c7010aeba
-URL:		http://annodex.net/software/libfishsound/index.html
+Source0:	http://downloads.xiph.org/releases/libfishsound/%{name}-%{version}.tar.gz
+# Source0-md5:	92f5d4de8ecd9ab3333b77224f8d3efd
+URL:		http://www.xiph.org/fishsound/
+BuildRequires:	flac-devel >= 1.1.3
 BuildRequires:	liboggz-devel >= 0.5.40
 BuildRequires:	libsndfile-devel >= 1.0.0
 BuildRequires:	libvorbis-devel >= 1:1.0
 BuildRequires:	pkgconfig
 BuildRequires:	speex-devel >= 1:1.1.6
-Requires:	libvorbis-devel >= 1:1.0
-Requires:	speex-devel >= 1:1.1.6
+Requires:	libvorbis >= 1:1.0
+Requires:	speex >= 1:1.1.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,6 +42,7 @@ Summary:	Header files for libfishsound library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libfishsound
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	flac-devel >= 1.1.3
 Requires:	libvorbis-devel >= 1:1.0
 Requires:	speex-devel >= 1:1.1.6
 
