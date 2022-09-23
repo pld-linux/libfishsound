@@ -2,7 +2,7 @@ Summary:	A library to encode and decode Vorbis or Speex compressed audio
 Summary(pl.UTF-8):	Biblioteka do kodowania i dekodowania dźwięku w formacie Speex lub Vorbis
 Name:		libfishsound
 Version:	1.0.0
-Release:	2
+Release:	3
 License:	BSD
 Group:		Libraries
 Source0:	http://downloads.xiph.org/releases/libfishsound/%{name}-%{version}.tar.gz
@@ -13,6 +13,7 @@ BuildRequires:	liboggz-devel >= 0.5.40
 BuildRequires:	libsndfile-devel >= 1.0.0
 BuildRequires:	libvorbis-devel >= 1:1.0
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	speex-devel >= 1:1.1.6
 Requires:	libvorbis >= 1:1.0
 Requires:	speex >= 1:1.1.6
@@ -64,6 +65,18 @@ Static libfishsound library.
 %description static -l pl.UTF-8
 Statyczna biblioteka libfishsound.
 
+%package apidocs
+Summary:	API documentation for libfishsound library
+Summary(pl.UTF-8):	Dokumentacja API biblioteki libfishsound
+Group:		Documentation
+BuildArch:	noarch
+
+%description apidocs
+API documentation for libfishsound library.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API biblioteki libfishsound.
+
 %prep
 %setup -q
 
@@ -77,6 +90,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	docdir=$RPM_BUILD_ROOT%{_docdir}/libfishsound
+
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libfishsound.la
 
 rm -rf $RPM_BUILD_ROOT%{_docdir}/libfishsound
 
@@ -94,12 +110,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc doc/libfishsound/html/*
 %attr(755,root,root) %{_libdir}/libfishsound.so
-%{_libdir}/libfishsound.la
 %{_includedir}/fishsound
 %{_pkgconfigdir}/fishsound.pc
 
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libfishsound.a
+
+%files apidocs
+%defattr(644,root,root,755)
+%doc doc/libfishsound/html/*
