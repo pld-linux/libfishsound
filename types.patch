@@ -1,0 +1,133 @@
+--- libfishsound-1.0.0/src/libfishsound/flac.c.orig	2010-02-03 14:34:02.000000000 +0100
++++ libfishsound-1.0.0/src/libfishsound/flac.c	2025-02-14 23:22:02.094039452 +0100
+@@ -106,7 +106,7 @@
+ #if FS_DECODE
+ static FLAC__StreamDecoderReadStatus
+ fs_flac_read_callback(const FLAC__StreamDecoder *decoder,
+-                      FLAC__byte buffer[], unsigned int *bytes,
++                      FLAC__byte buffer[], long unsigned int *bytes,
+                       void *client_data)
+ {
+   FishSound* fsound = (FishSound*)client_data;
+@@ -121,7 +121,7 @@
+   }
+ 
+   memcpy(buffer, fi->buffer, fi->bufferlength);
+-  *bytes = (unsigned int)fi->bufferlength;
++  *bytes = fi->bufferlength;
+   fi->bufferlength = 0;
+   return FLAC__STREAM_DECODER_READ_STATUS_CONTINUE;
+ }
+@@ -346,7 +346,7 @@
+ #if FS_ENCODE
+ static FLAC__StreamEncoderWriteStatus
+ fs_flac_enc_write_callback(const FLAC__StreamEncoder *encoder,
+-                           const FLAC__byte buffer[], unsigned bytes,
++                           const FLAC__byte buffer[], long unsigned bytes,
+                            unsigned samples, unsigned current_frame,
+                            void *client_data)
+ {
+@@ -354,7 +354,7 @@
+   FishSoundFlacInfo *fi = fsound->codec_data;
+ 
+   debug_printf(1, "IN");
+-  debug_printf(1, "bytes: %d, samples: %d", bytes, samples);
++  debug_printf(1, "bytes: %lu, samples: %u", bytes, samples);
+ 
+   if (fsound->callback.encoded) {
+     FishSoundEncoded encoded = (FishSoundEncoded) fsound->callback.encoded;
+--- libfishsound-1.0.0/src/examples/fishsound-info.c.orig	2009-03-28 04:40:03.000000000 +0100
++++ libfishsound-1.0.0/src/examples/fishsound-info.c	2025-02-14 23:34:29.763833722 +0100
+@@ -76,15 +76,15 @@
+ }
+ 
+ static int
+-read_packet (OGGZ * oggz, ogg_packet * op, long serialno, void * user_data)
++read_packet (OGGZ * oggz, oggz_packet * op, long serialno, void * user_data)
+ {
+   FishSound * fsound = (FishSound *)user_data;
+ 
+-  if (op->e_o_s) {
+-    fish_sound_prepare_truncation (fsound, op->e_o_s, op->granulepos);
++  if (op->op.e_o_s) {
++    fish_sound_prepare_truncation (fsound, op->op.e_o_s, op->op.granulepos);
+   }
+ 
+-  fish_sound_decode (fsound, op->packet, op->bytes);
++  fish_sound_decode (fsound, op->op.packet, op->op.bytes);
+ 
+   return OGGZ_CONTINUE;
+ }
+--- libfishsound-1.0.0/src/examples/fishsound-identify.c.orig	2009-03-28 04:40:03.000000000 +0100
++++ libfishsound-1.0.0/src/examples/fishsound-identify.c	2025-02-14 23:35:23.464058357 +0100
+@@ -60,17 +60,17 @@
+ }
+ 
+ static int
+-read_packet (OGGZ * oggz, ogg_packet * op, long serialno, void * user_data)
++read_packet (OGGZ * oggz, oggz_packet * op, long serialno, void * user_data)
+ {
+ 
+-  if (op->bytes < 8) {
++  if (op->op.bytes < 8) {
+     printf ("too short\n");
+   } else {
+     printf ("Weak identity:\t");
+-    dump_identity (op->packet, 8);
++    dump_identity (op->op.packet, 8);
+ 
+     printf ("Strong identity:\t");
+-    dump_identity (op->packet, op->bytes);
++    dump_identity (op->op.packet, op->op.bytes);
+   }
+ 
+   oggz_set_read_callback (oggz, -1, NULL, NULL);
+--- libfishsound-1.0.0/src/examples/fishsound-decenc.c.orig	2009-03-28 04:40:03.000000000 +0100
++++ libfishsound-1.0.0/src/examples/fishsound-decenc.c	2025-02-14 23:36:11.444259064 +0100
+@@ -129,12 +129,12 @@
+ }
+ 
+ static int
+-read_packet (OGGZ * oggz, ogg_packet * op, long serialno, void * user_data)
++read_packet (OGGZ * oggz, oggz_packet * op, long serialno, void * user_data)
+ {
+   FS_DecEnc * ed = (FS_DecEnc *) user_data;
+   
+-  fish_sound_prepare_truncation (ed->decoder, op->granulepos, op->e_o_s);
+-  fish_sound_decode (ed->decoder, op->packet, op->bytes);
++  fish_sound_prepare_truncation (ed->decoder, op->op.granulepos, op->op.e_o_s);
++  fish_sound_decode (ed->decoder, op->op.packet, op->op.bytes);
+ 
+   return 0;
+ }
+--- libfishsound-1.0.0/src/examples/fishsound-decode.c.orig	2009-03-28 04:40:03.000000000 +0100
++++ libfishsound-1.0.0/src/examples/fishsound-decode.c	2025-02-14 23:37:06.351155413 +0100
+@@ -82,7 +82,7 @@
+ }
+ 
+ static int
+-read_packet (OGGZ * oggz, ogg_packet * op, long serialno, void * user_data)
++read_packet (OGGZ * oggz, oggz_packet * op, long serialno, void * user_data)
+ {
+   FishSound * fsound = (FishSound *)user_data;
+ 
+@@ -94,15 +94,15 @@
+    * than 8 bytes of data, fish_sound_identify would simply return
+    * FISH_SOUND_ERR_SHORT_IDENTIFY.
+    */
+-  if (decode_serialno == -1 && op->b_o_s && op->bytes >= 8) {
+-    if (fish_sound_identify (op->packet, op->bytes) != FISH_SOUND_UNKNOWN)
++  if (decode_serialno == -1 && op->op.b_o_s && op->op.bytes >= 8) {
++    if (fish_sound_identify (op->op.packet, op->op.bytes) != FISH_SOUND_UNKNOWN)
+       decode_serialno = serialno;
+   }
+ 
+   /* If this is the track we are decoding, go ahead and decode it */
+   if (serialno == decode_serialno) {
+-    fish_sound_prepare_truncation (fsound, op->granulepos, op->e_o_s);
+-    fish_sound_decode (fsound, op->packet, op->bytes);
++    fish_sound_prepare_truncation (fsound, op->op.granulepos, op->op.e_o_s);
++    fish_sound_decode (fsound, op->op.packet, op->op.bytes);
+   }
+ 
+   return 0;

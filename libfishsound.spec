@@ -7,6 +7,7 @@ License:	BSD
 Group:		Libraries
 Source0:	http://downloads.xiph.org/releases/libfishsound/%{name}-%{version}.tar.gz
 # Source0-md5:	02c5c7b361a35c9da3cf311d68800dab
+Patch0:		types.patch
 URL:		http://www.xiph.org/fishsound/
 BuildRequires:	flac-devel >= 1.1.3
 BuildRequires:	liboggz-devel >= 0.5.40
@@ -79,6 +80,7 @@ Dokumentacja API biblioteki libfishsound.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 %build
 %configure
